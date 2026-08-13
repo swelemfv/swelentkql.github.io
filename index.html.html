@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>swelen | Creator & YouTuber</title>
+    <meta name="description" content="Portfolio of swelen - Creator, YouTuber, and Student. Showcasing video editing, music, and creative projects.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="swelen | Portfolio">
+    <meta property="og:description" content="Creator, YouTuber, and Student. Check out my creative works.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        black: '#111111',
+                        accent: '#2563eb', // Vibrant Blue
+                        accentLight: '#60a5fa',
+                        surface: 'rgba(255, 255, 255, 0.7)',
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(37, 99, 235, 0.3)',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for specific animations and effects -->
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            background-color: #fafafa;
+            /* Subtle animated background gradient */
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(217,100%,94%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(227,100%,96%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(217,100%,92%,1) 0, transparent 50%);
+            background-attachment: fixed;
+            color: #111111;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Scroll Animations (Intersection Observer targets) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays for child elements */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8; 
+        }
+
+        /* Hero Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, #111, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Floating animation for hero image/element */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="text-xl font-bold tracking-tighter">swelen<span class="text-accent">.</span></a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-sm font-semibold hover:text-accent transition-colors">Home</a>
+                <a href="#about" class="text-sm font-semibold hover:text-accent transition-colors">About</a>
+                <a href="#works" class="text-sm font-semibold hover:text-accent transition-colors">Works</a>
+                <a href="#youtube" class="text-sm font-semibold hover:text-accent transition-colors">YouTube</a>
+                <a href="#sns" class="text-sm font-semibold hover:text-accent transition-colors">SNS</a>
+                <a href="#contact" class="text-sm font-semibold px-4 py-2 bg-black text-white rounded-full hover:bg-accent transition-colors shadow-lg hover:shadow-glow">Contact</a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none" aria-label="Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full glass flex-col space-y-4 px-6 py-6 shadow-lg md:hidden border-t border-white/40">
+            <a href="#home" class="mobile-link text-lg font-semibold">Home</a>
+            <a href="#about" class="mobile-link text-lg font-semibold">About</a>
+            <a href="#works" class="mobile-link text-lg font-semibold">Works</a>
+            <a href="#youtube" class="mobile-link text-lg font-semibold">YouTube</a>
+            <a href="#sns" class="mobile-link text-lg font-semibold">SNS</a>
+            <a href="#contact" class="mobile-link text-lg font-semibold text-accent">Contact</a>
+        </div>
+    </nav>
+
+    <!-- 4. ファーストビュー (Hero Section) -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <!-- Decorative background blur -->
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-5xl mx-auto px-6 w-full text-center relative z-10">
+            <div class="reveal">
+                <p class="text-sm md:text-base font-semibold text-accent mb-4 tracking-widest uppercase">Welcome to my portfolio</p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter mb-4">
+                    Hello, I'm <br class="md:hidden"> <span class="text-gradient">swelen</span>
+                </h1>
+                <h2 class="text-xl md:text-3xl font-light text-gray-600 mb-6">
+                    Creator <span class="text-gray-300 mx-2">|</span> YouTuber <span class="text-gray-300 mx-2">|</span> Student
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mb-10 text-base md:text-lg">
+                    動画・クリエイティブを楽しみながら、自分らしいコンテンツを発信しています。<br class="hidden md:block"> 
+                    常に新しいことにチャレンジし、アイデアを形にすることが好きです。
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 reveal delay-200">
+                <a href="#about" class="px-8 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition-all hover:scale-105 active:scale-95 shadow-soft">About Me</a>
+                <a href="#works" class="px-8 py-3 rounded-full bg-white text-black font-semibold border border-gray-200 hover:border-gray-300 transition-all hover:scale-105 active:scale-95 shadow-soft">My Works</a>
+                <a href="#youtube" class="px-8 py-3 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition-all hover:scale-105 active:scale-95 shadow-glow"><i class="fa-brands fa-youtube mr-2"></i>YouTube</a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-gray-400 hover:text-black transition-colors animate-bounce">
+            <span class="text-xs font-semibold tracking-widest uppercase mb-2">Scroll</span>
+            <i class="fa-solid fa-arrow-down"></i>
+        </a>
+    </section>
+
+    <!-- 6. Aboutセクション -->
+    <section id="about" class="py-24 bg-white/50 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">About Me</h2>
+                <div class="w-12 h-1 bg-accent mx-auto rounded"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <!-- Profile Image -->
+                <div class="w-full md:w-1/3 flex justify-center reveal">
+                    <div class="relative w-64 h-64">
+                        <div class="absolute inset-0 bg-accent rounded-full transform translate-x-4 translate-y-4 opacity-20"></div>
+                        <!-- 画像URLを変更する場合は以下の src 属性を変更してください -->
+                        <img src="https://placehold.co/400x400/2563eb/ffffff?text=swelen" alt="swelen profile" class="w-full h-full object-cover rounded-full shadow-xl relative z-10 border-4 border-white">
+                    </div>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="w-full md:w-2/3 reveal delay-100">
+                    <h3 class="text-2xl font-bold mb-6">sevlk (swelen)</h3>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        こんにちは！映像制作や音楽を聴くことが好きな学生クリエイターです。YouTubeやTikTokを通して、自分の好きなことやチャレンジしていることを発信しています。デザインや編集技術を磨きながら、見てくれる人が楽しめるコンテンツ作りを目指しています。
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                        <div class="flex items-start border-b border-gray-100 pb-2">
+                            <span class="text-gray-400 w-24 font-medium text-sm mt-1">Name</span>
+                            <span class="font-semibold text-gray-800">swelen</span>
+                        </div>
+                        <div class="flex items-start border-b border-gray-100 pb-2">
+                            <span class="text-gray-400 w-24 font-medium text-sm mt-1">Age</span>
+                            <span class="font-semibold text-gray-800">16</span>
+                        </div>
+                        <div class="flex items-start border-b border-gray-100 pb-2">
+                            <span class="text-gray-400 w-24 font-medium text-sm mt-1">Location</span>
+                            <span class="font-semibold text-gray-800">JPN</span>
+                        </div>
+                        <div class="flex items-start border-b border-gray-100 pb-2">
+                            <span class="text-gray-400 w-24 font-medium text-sm mt-1">Activity</span>
+                            <span class="font-semibold text-gray-800">YouTuber / Challenge</span>
+                        </div>
+                        <div class="flex items-start border-b border-gray-100 pb-2 sm:col-span-2">
+                            <span class="text-gray-400 w-24 font-medium text-sm mt-1">Likes</span>
+                            <span class="font-semibold text-gray-800">Listen to music, Video editing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. My Works -->
+    <section id="works" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">My Works</h2>
+                <div class="w-12 h-1 bg-accent mx-auto rounded"></div>
+                <p class="text-gray-500 mt-4 max-w-xl mx-auto">これまで制作した動画、編集作品、その他のクリエイティブな活動をまとめています。</p>
+            </div>
+
+            <!-- Works Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Work Card 1 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-soft hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://placehold.co/600x400/111111/ffffff?text=Video+Edit+01" alt="Work 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold">Video Editing</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Vlog Editing Project</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">日常を切り取ったVlogの編集を行いました。テンポ感と色調補正にこだわっています。</p>
+                        <a href="#" class="inline-flex items-center text-sm font-semibold text-accent hover:text-black transition-colors">
+                            詳細を見る <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Work Card 2 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-soft hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal delay-100">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://placehold.co/600x400/2563eb/ffffff?text=Music+Mix" alt="Work 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold">Music</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Favorite Playlist Mix</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">好きな音楽を集めてシームレスに繋いだ作業用BGMミックスです。</p>
+                        <a href="#" class="inline-flex items-center text-sm font-semibold text-accent hover:text-black transition-colors">
+                            詳細を見る <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Work Card 3 -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-soft hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal delay-200">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://placehold.co/600x400/666666/ffffff?text=Short+Movie" alt="Work 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold">Short Video</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">TikTok Challenge</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">流行りのエフェクトと音楽を使ったショート動画。視覚的な面白さを追求しました。</p>
+                        <a href="#" class="inline-flex items-center text-sm font-semibold text-accent hover:text-black transition-colors">
+                            詳細を見る <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                 <button class="px-6 py-3 rounded-full border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition-all">View All Works</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. YouTubeセクション -->
+    <section id="youtube" class="py-24 bg-black text-white relative overflow-hidden">
+        <!-- Background accent for dark section -->
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-red-600 rounded-full mix-blend-screen filter blur-[100px] opacity-30"></div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 flex items-center">
+                        <i class="fa-brands fa-youtube text-red-600 mr-4"></i>YouTube
+                    </h2>
+                    <p class="text-gray-400 max-w-lg">動画制作や自分が好きなこと、日々のチャレンジを発信しています。チャンネル登録よろしくお願いします！</p>
+                </div>
+                <!-- YouTube Channel URL -->
+                <a href="https://www.youtube.com/@xSwelentkl" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition-all flex items-center shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+                    Subscribe Channel <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-sm"></i>
+                </a>
+            </div>
+
+            <!-- YouTube Videos Grid (Mockup) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal delay-100">
+                <!-- Video 1 -->
+                <a href="https://www.youtube.com/@xSwelentkl" target="_blank" class="group relative rounded-xl overflow-hidden aspect-video bg-gray-900 border border-gray-800 hover:border-gray-600 transition-colors">
+                    <img src="https://placehold.co/800x450/222222/ffffff?text=Latest+Video+Thumbnail" alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white transform group-hover:scale-110 transition-transform shadow-lg">
+                            <i class="fa-solid fa-play text-xl ml-1"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent">
+                        <h3 class="font-semibold text-lg line-clamp-1">最新の動画タイトルがここに入ります</h3>
+                        <p class="text-gray-400 text-sm">1.2K Views • 2 days ago</p>
+                    </div>
+                </a>
+
+                <!-- Video 2 -->
+                <a href="https://www.youtube.com/@xSwelentkl" target="_blank" class="group relative rounded-xl overflow-hidden aspect-video bg-gray-900 border border-gray-800 hover:border-gray-600 transition-colors">
+                    <img src="https://placehold.co/800x450/333333/ffffff?text=Popular+Video+Thumbnail" alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white transform group-hover:scale-110 transition-transform shadow-lg">
+                            <i class="fa-solid fa-play text-xl ml-1"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent">
+                        <h3 class="font-semibold text-lg line-clamp-1">一番人気のある動画のタイトルです</h3>
+                        <p class="text-gray-400 text-sm">5.8K Views • 1 month ago</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. SNSセクション -->
+    <section id="sns" class="py-24 bg-white/30 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-2">Connect with me</h2>
+                <div class="w-12 h-1 bg-accent mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- X (Twitter) -->
+                <a href="https://x.com/swelentkl" target="_blank" rel="noopener noreferrer" class="glass p-6 rounded-2xl flex items-center hover:-translate-y-1 hover:shadow-lg transition-all group reveal">
+                    <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl mr-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">X (Twitter)</h3>
+                        <p class="text-xs text-gray-500">@swelentkl</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right ml-auto text-gray-300 group-hover:text-black transition-colors"></i>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@swelentklx?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="glass p-6 rounded-2xl flex items-center hover:-translate-y-1 hover:shadow-lg transition-all group reveal delay-100">
+                    <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl mr-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">TikTok</h3>
+                        <p class="text-xs text-gray-500">@swelentklx</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right ml-auto text-gray-300 group-hover:text-black transition-colors"></i>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@xSwelentkl" target="_blank" rel="noopener noreferrer" class="glass p-6 rounded-2xl flex items-center hover:-translate-y-1 hover:shadow-lg transition-all group reveal delay-200">
+                    <div class="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center text-xl mr-4 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(220,38,38,0.4)]">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">YouTube</h3>
+                        <p class="text-xs text-gray-500">xSwelentkl</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right ml-auto text-gray-300 group-hover:text-black transition-colors"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Contact -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="glass rounded-3xl p-8 md:p-12 shadow-soft reveal">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold tracking-tight mb-2">Get in Touch</h2>
+                    <p class="text-gray-500 text-sm">お仕事のご依頼やメッセージはこちらからお願いします。<br>
+                    <span class="text-accent text-xs block mt-2">※現在UIデモのため、実際の送信は行われません。後からFormspree等のURLを設定できます。</span></p>
+                </div>
+
+                <!-- Formspree等のエンドポイントを使用する場合は action="YOUR_ENDPOINT_URL" method="POST" に変更してください -->
+                <form action="#" method="dialog" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="name" class="text-sm font-semibold text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" placeholder="お名前" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="text-sm font-semibold text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" placeholder="メールアドレス" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label for="message" class="text-sm font-semibold text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="メッセージを入力してください" required
+                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all resize-none"></textarea>
+                    </div>
+                    <button type="submit" 
+                        class="w-full py-4 rounded-xl bg-black text-white font-bold text-lg hover:bg-accent transition-colors shadow-lg hover:shadow-glow active:scale-[0.98]">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. フッター -->
+    <footer class="bg-black text-white py-12 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <a href="#home" class="text-2xl font-bold tracking-tighter block mb-2">swelen<span class="text-accent">.</span></a>
+                <p class="text-gray-500 text-sm">© 2026 swelen. All Rights Reserved.</p>
+            </div>
+            
+            <div class="flex space-x-6">
+                <a href="https://x.com/swelentkl" target="_blank" class="text-gray-400 hover:text-white transition-colors text-xl" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@swelentklx?is_from_webapp=1&sender_device=pc" target="_blank" class="text-gray-400 hover:text-white transition-colors text-xl" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@xSwelentkl" target="_blank" class="text-gray-400 hover:text-red-500 transition-colors text-xl" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            /* --- 1. Mobile Menu Toggle --- */
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = btn.querySelector('i');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            const toggleMenu = () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                if(menu.classList.contains('hidden')){
+                    icon.classList.replace('fa-xmark', 'fa-bars');
+                } else {
+                    icon.classList.replace('fa-bars', 'fa-xmark');
+                }
+            };
+
+            btn.addEventListener('click', toggleMenu);
+
+            // Close menu when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+
+            /* --- 2. Navbar Scroll Effect --- */
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-sm', 'bg-white/80');
+                    navbar.classList.remove('py-4');
+                    navbar.classList.add('py-2');
+                } else {
+                    navbar.classList.remove('shadow-sm', 'bg-white/80');
+                    navbar.classList.add('py-4');
+                    navbar.classList.remove('py-2');
+                }
+            });
+
+
+            /* --- 3. Scroll Reveal Animation (Intersection Observer) --- */
+            // ページスクロール時に要素をフワッと表示させる処理
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15, // 要素が15%見えたら発火
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        // 一度表示されたら監視を解除（再度スクロールしてもアニメーションさせない場合）
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+
+
+            /* --- 4. Contact Form Prevent Default (UI Demo Only) --- */
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const originalText = btn.innerText;
+                
+                // 送信したフリのアニメーション
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';
+                btn.classList.add('bg-gray-500');
+                btn.classList.remove('hover:bg-accent');
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
+                    btn.classList.replace('bg-gray-500', 'bg-green-600');
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.remove('bg-green-600');
+                        btn.classList.add('hover:bg-accent');
+                    }, 3000);
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
